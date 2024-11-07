@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contacto;
+use App\Models\Etiqueta;
 use Illuminate\Http\Request;
 
-class ContactoController extends Controller
+class EtiquetaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,6 @@ class ContactoController extends Controller
     public function index()
     {
         //
-        return view('contactos.index');
     }
 
     /**
@@ -22,7 +21,6 @@ class ContactoController extends Controller
     public function create()
     {
         //
-        return view('contactos.create');
     }
 
     /**
@@ -36,7 +34,7 @@ class ContactoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Contacto $contacto)
+    public function show(Etiqueta $etiqueta)
     {
         //
     }
@@ -44,7 +42,7 @@ class ContactoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Contacto $contacto)
+    public function edit(Etiqueta $etiqueta)
     {
         //
     }
@@ -52,7 +50,7 @@ class ContactoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Contacto $contacto)
+    public function update(Request $request, Etiqueta $etiqueta)
     {
         //
     }
@@ -60,7 +58,7 @@ class ContactoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Contacto $contacto)
+    public function destroy(Etiqueta $etiqueta)
     {
         //
     }
