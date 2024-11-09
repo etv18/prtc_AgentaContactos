@@ -70,7 +70,7 @@ class ContactoController extends Controller
     {
         //
         $etiquetas = Etiqueta::all();
-        return view('contactos.show', compact('etiquetas', 'contacto'));
+        return view('contactos.edit', compact('etiquetas', 'contacto'));
     }
 
     /**
@@ -89,9 +89,9 @@ class ContactoController extends Controller
             'puesto_trabajo' => 'nullable|string|max:150',
             'nota' => 'nullable|string|max:255',
         ]);
-
+        $etiquetas = Etiqueta::all();
         $contacto->update($data);
-        return view('contactos.edit');
+        return view('contactos.show', compact('contacto', 'etiquetas'));
     }
 
     /**

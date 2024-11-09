@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
     })->name('contactos.index');
 
     Route::resource('/contactos', ContactoController::class);
+    Route::get('contactos/{contacto}/edit', [ContactoController::class, 'edit'])->name('contactos.edit');
     Route::resource('/etiquetas', EtiquetaController::class);
 });
 

@@ -30,7 +30,7 @@
                     <select id="etiqueta_id" name="etiqueta_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option></option>
                         @foreach($etiquetas as $etiqueta)
-                        <option value="{{ $etiqueta->id }}">{{ $etiqueta->nombre }}</option>
+                        <option value="{{ $etiqueta->id }}" {{ old('etiqueta_id', $contacto->etiqueta_id) == $etiqueta->id ? 'selected' : '' }}>{{ $etiqueta->nombre }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -47,7 +47,7 @@
                     <label for="nota" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Notas</label>
                     <input type="text" id="nota" name="nota" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $contacto->nota }}" disabled>
                 </div>
-                <a href="{{ route('contactos.edit', $contacto) }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</a>
+                <a href="{{ route('contactos.edit', $contacto->id) }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Editar</a>
             </div>
         </div>
     </div>
