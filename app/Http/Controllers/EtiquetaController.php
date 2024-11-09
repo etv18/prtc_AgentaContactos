@@ -29,6 +29,16 @@ class EtiquetaController extends Controller
     public function store(Request $request)
     {
         //
+        $data = $request->validate([
+            'nombre' => 'required|max:80'
+        ]);
+
+        $etiqueta = Etiqueta::create($data);
+
+        return response()->json([
+            'message' => 'Etiqueta creada',
+            'data' => $etiqueta,
+        ], 201);
     }
 
     /**

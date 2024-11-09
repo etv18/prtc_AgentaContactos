@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contacto;
+use App\Models\Etiqueta;
 use Illuminate\Http\Request;
 
 class ContactoController extends Controller
@@ -13,7 +14,8 @@ class ContactoController extends Controller
     public function index()
     {
         //
-        return view('contactos.index');
+        $contactos = Contacto::all();
+        return view('contactos.index', compact('contactos'));
     }
 
     /**
@@ -22,7 +24,8 @@ class ContactoController extends Controller
     public function create()
     {
         //
-        return view('contactos.create');
+        $etiquetas = Etiqueta::all();
+        return view('contactos.create', compact('etiquetas'));
     }
 
     /**
@@ -31,6 +34,23 @@ class ContactoController extends Controller
     public function store(Request $request)
     {
         //
+        $data = $request->validate([
+            'nombre' => 'required|string|max:80',
+            'apellido' => 'nullable|string|max:80',
+            'telefono' => 'required|string|max:12',
+            'email' => 'nullable|email|max:80',
+            'etiqueta_id' => 'nullable|exists:etiquetas,id',
+            'trabajo' => 'nullable|string|max:80',
+            'puesto_trabajo' => 'nullable|string|max:150',
+            'nota' => 'nullable|string|max:255',
+        ]);
+
+        $contacto = Contacto::create($data);
+
+        return response()->json([
+            'message' => 'Registro creado con exito',
+            'contacto' => $contacto
+        ], 201);
     }
 
     /**
@@ -39,6 +59,7 @@ class ContactoController extends Controller
     public function show(Contacto $contacto)
     {
         //
+        return "Showing $contacto->name";
     }
 
     /**
@@ -63,5 +84,7 @@ class ContactoController extends Controller
     public function destroy(Contacto $contacto)
     {
         //
+        $contacto->delete();
+        return to_route('contactos.index');
     }
 }
