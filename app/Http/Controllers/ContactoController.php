@@ -59,7 +59,8 @@ class ContactoController extends Controller
     public function show(Contacto $contacto)
     {
         //
-        return "Showing $contacto->name";
+        $etiquetas = Etiqueta::all();
+        return view('contactos.show', compact('etiquetas', 'contacto'));
     }
 
     /**
@@ -68,6 +69,8 @@ class ContactoController extends Controller
     public function edit(Contacto $contacto)
     {
         //
+        $etiquetas = Etiqueta::all();
+        return view('contactos.show', compact('etiquetas', 'contacto'));
     }
 
     /**
@@ -76,6 +79,19 @@ class ContactoController extends Controller
     public function update(Request $request, Contacto $contacto)
     {
         //
+        $data = $request->validate([
+            'nombre' => 'required|string|max:80',
+            'apellido' => 'nullable|string|max:80',
+            'telefono' => 'required|string|max:12',
+            'email' => 'nullable|email|max:80',
+            'etiqueta_id' => 'nullable|exists:etiquetas,id',
+            'trabajo' => 'nullable|string|max:80',
+            'puesto_trabajo' => 'nullable|string|max:150',
+            'nota' => 'nullable|string|max:255',
+        ]);
+
+        $contacto->update($data);
+        return view('contactos.edit');
     }
 
     /**

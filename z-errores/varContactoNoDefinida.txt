@@ -1,0 +1,12 @@
+Por alguna razon cuando hago submit en el formulario del edit contacto. Me daba este error:
+
+'Undefined variable $contacto'
+
+Se puede corregir agregando $contacto->id en vez de $contacto en el action del formulario
+
+Con el error:
+    <form class="max-w-md ml-0 w-full" action="{{ route('contactos.update', $contacto) }}" method="POST">
+
+Sin el error:
+    <form class="max-w-md ml-0 w-full" action="{{ route('contactos.update', $contacto->id) }}" method="POST">
+
