@@ -47,10 +47,7 @@ class ContactoController extends Controller
 
         $contacto = Contacto::create($data);
 
-        return response()->json([
-            'message' => 'Registro creado con exito',
-            'contacto' => $contacto
-        ], 201);
+        return to_route('contactos.index');
     }
 
     /**

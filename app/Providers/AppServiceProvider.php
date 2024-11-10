@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Contacto;
+use App\Models\Etiqueta;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,5 +24,12 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Schema::defaultStringLength(191);
+
+        view()->composer('*', function ($view) {
+            $view->with([
+                'contactos_cant' => Contacto::count(),
+                'etiquetas' => Etiqueta::all(),
+            ]);
+        });
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contacto;
 use App\Models\Etiqueta;
 use Illuminate\Http\Request;
 
@@ -13,6 +14,10 @@ class EtiquetaController extends Controller
     public function index()
     {
         //
+        $etiquetas = Etiqueta::all();
+        $contactos = Contacto::all();
+
+        return view('etiquetas.index', compact('etiquetas', 'contactos'));
     }
 
     /**
@@ -35,10 +40,7 @@ class EtiquetaController extends Controller
 
         $etiqueta = Etiqueta::create($data);
 
-        return response()->json([
-            'message' => 'Etiqueta creada',
-            'data' => $etiqueta,
-        ], 201);
+        return to_route('contactos.index');
     }
 
     /**
@@ -63,6 +65,13 @@ class EtiquetaController extends Controller
     public function update(Request $request, Etiqueta $etiqueta)
     {
         //
+        $data = $request->validate([
+            'nombre' => 'required|max:80'
+        ]);
+
+        $etiqueta->update($data);
+
+        return to_route('contactos.index');
     }
 
     /**
@@ -71,5 +80,7 @@ class EtiquetaController extends Controller
     public function destroy(Etiqueta $etiqueta)
     {
         //
+        $etiqueta->delete();
+        return to_route('contactos.index');
     }
 }
