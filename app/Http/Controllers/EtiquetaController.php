@@ -48,7 +48,19 @@ class EtiquetaController extends Controller
      */
     public function show(Etiqueta $etiqueta)
     {
-        //
+        //$contactos = Contacto::all();
+
+        $etiqueta->load('contactos');
+        $contactos_cant = $etiqueta->contactos->count();
+        $contactos = $etiqueta->contactos;
+        /*
+        if ($contactos->isEmpty()) {
+            dd("No hay contactos relacionados con esta etiqueta.");
+        } else {
+            dd($contactos); // Muestra los contactos relacionados
+        }
+            */
+        return view('etiquetas.show', compact('etiqueta', 'contactos_cant', 'contactos'));
     }
 
     /**
@@ -82,5 +94,21 @@ class EtiquetaController extends Controller
         //
         $etiqueta->delete();
         return to_route('contactos.index');
+    }
+
+    public function removeContact($etiquetaId, $contactoId)
+    {
+        // Buscar la etiqueta
+        $etiqueta = Etiqueta::findOrFail($etiquetaId);
+
+        // Buscar el contacto
+        $contacto = Contacto::findOrFail($contactoId);
+
+        // Desvincular el contacto de la etiqueta (poniendo el campo etiqueta_id a null)
+        $contacto->etiqueta_id = null;
+        $contacto->save();
+
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('etiquetas.show', $etiquetaId)->with('success', 'Etiqueta quitada del contacto.');
     }
 }

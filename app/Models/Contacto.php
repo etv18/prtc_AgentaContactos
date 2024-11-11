@@ -19,6 +19,6 @@ class Contacto extends Model
     ];
     public function etiqueta()
     {
-        return $this->belongsTo(Etiqueta::class, 'id');
+        return $this->belongsTo(Etiqueta::class, 'etiqueta_id');
     }
 }

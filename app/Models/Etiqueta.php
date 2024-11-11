@@ -11,6 +11,6 @@ class Etiqueta extends Model
 
     public function contactos()
     {
-        return $this->hasMany(Contacto::class, 'id');
+        return $this->hasMany(Contacto::class, 'etiqueta_id');
     }
 }

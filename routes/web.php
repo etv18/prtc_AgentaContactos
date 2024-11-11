@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/contactos', ContactoController::class);
     Route::get('contactos/{contacto}/edit', [ContactoController::class, 'edit'])->name('contactos.edit');
     Route::resource('/etiquetas', EtiquetaController::class);
+    Route::patch('/etiquetas/{etiqueta}/remove-contact/{contacto}', [EtiquetaController::class, 'removeContact'])->name('etiquetas.removerContacto');
 });
 
 require __DIR__ . '/auth.php';
