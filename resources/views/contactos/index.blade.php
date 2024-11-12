@@ -6,7 +6,7 @@
                     <!-- Encabezado del título y contador -->
                     <div class="p-2 text-xl font-semibold text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <div class="flex items-center space-x-4 ml-2">
-                            <span>Contactos ({{ $contactos_cant }})</span>
+                            <span>Contacto/s ({{ $contactos_cant }})</span>
                         </div>
                     </div>
                     <!-- Encabezado de la tabla -->

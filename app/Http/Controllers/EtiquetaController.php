@@ -49,9 +49,7 @@ class EtiquetaController extends Controller
     public function show(Etiqueta $etiqueta)
     {
         //$contactos = Contacto::all();
-
-        $etiqueta->load('contactos');
-        $contactos_cant = $etiqueta->contactos->count();
+        $contactos_cantidad = $etiqueta->contactos->count();
         $contactos = $etiqueta->contactos;
         /*
         if ($contactos->isEmpty()) {
@@ -60,7 +58,7 @@ class EtiquetaController extends Controller
             dd($contactos); // Muestra los contactos relacionados
         }
             */
-        return view('etiquetas.show', compact('etiqueta', 'contactos_cant', 'contactos'));
+        return view('etiquetas.show', compact('etiqueta', 'contactos_cantidad', 'contactos'));
     }
 
     /**
