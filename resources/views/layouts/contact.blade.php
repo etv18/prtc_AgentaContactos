@@ -143,16 +143,72 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m1.768-4.768a2.5 2.5 0 010 3.536L7 21l-4 1 1-4L16.5 3.5a2.5 2.5 0 013.536 0z" />
                                     </svg>
                                 </button>
+                                <button del-data-modal-target="delete-modal-{{$etiqueta->id}}" del-data-modal-toggle="delete-modal-{{$etiqueta->id}}" class="p-2" type="button">
+                                    <!-- Aquí un ícono de edición -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M3 6h18v2H3zm2 3h14l-1 14H6zM9 2h6v2H9z" />
+                                    </svg>
+                                </button>
 
-                                <form action="{{ route('etiquetas.destroy', $etiqueta->id) }}" method="post">
-                                    @csrf @method('DELETE')
-                                    <a href="{{ route('etiquetas.destroy', $etiqueta->id) }}"
-                                        onclick="event.preventDefault(); this.closest('form').submit();">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M3 6h18v2H3zm2 3h14l-1 14H6zM9 2h6v2H9z" />
-                                        </svg>
-                                    </a>
-                                </form>
+                                <!-- Modal de Eliminacion -->
+                                <div id="delete-modal-{{$etiqueta->id}}" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 flex justify-center items-center w-full h-full bg-gray-800 bg-opacity-50">
+                                    <div class="relative p-4 w-full max-w-md">
+                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                            <!-- Modal header -->
+                                            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                                    Eliminar {{$etiqueta->nombre}}
+                                                </h3>
+                                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" del-data-modal-toggle="delete-modal-{{$etiqueta->id}}">
+                                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                    </svg>
+                                                    <span class="sr-only">Close modal</span>
+                                                </button>
+                                            </div>
+                                            <!-- Modal body -->
+                                            <form action="{{ route('etiquetas.destroy', $etiqueta->id) }}" method="POST" class="p-4 md:p-5">
+                                                @csrf
+                                                @method('DELETE')
+                                                <div class="grid gap-4 mb-4">
+                                                    <ul class="p-3 w-full space-y-1 text-sm text-gray-700 dark:text-gray-200">
+                                                        <li>
+                                                            <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                                                <div class="flex items-center h-5">
+                                                                    <input id="helper-radio-4" name="helper-radio" type="radio" value="0" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" checked>
+                                                                </div>
+                                                                <div class="ms-2 text-sm">
+                                                                    <label for="helper-radio-4" class="font-medium text-gray-900 dark:text-gray-300">
+                                                                        <div>Eliminar únicamente la etiqueta</div>
+                                                                        <p class="text-xs font-normal text-gray-500">Se eliminará solamente la etiqueta sin eliminar los contactos asociados a ella.</p>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                                                <div class="flex items-center h-5">
+                                                                    <input id="helper-radio-5" name="helper-radio" type="radio" value="1" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                                                                </div>
+                                                                <div class="ms-2 text-sm">
+                                                                    <label for="helper-radio-5" class="font-medium text-gray-900 dark:text-gray-300">
+                                                                        <div>Eliminar la etiqueta y los contactos que contiene</div>
+                                                                        <p class="text-xs font-normal text-gray-500">Se eliminarán todos los contactos asociados a la etiqueta y la etiqueta misma.</p>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <button type="submit" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5">
+                                                    Guardar
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
@@ -235,6 +291,33 @@
 
                 // Obtener el botón de cierre del modal y agregar el evento para cerrar
                 const closeModalButton = modal.querySelector(`[data-modal-toggle="${modalId}"]`);
+                closeModalButton.addEventListener('click', () => {
+                    modal.classList.add('hidden');
+                });
+
+                // Cerrar el modal cuando se hace clic fuera del contenido de edición
+                window.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.add('hidden');
+                    }
+                });
+            });
+        </script>
+
+        <script>
+            // Obtener todos los botones de apertura de modal y sus respectivos modales
+            document.querySelectorAll('[del-data-modal-toggle]').forEach(button => {
+                // Obtener el id del modal específico
+                const modalId = button.getAttribute('del-data-modal-toggle');
+                const modal = document.getElementById(modalId);
+
+                // Abrir el modal correspondiente al hacer clic en el botón
+                button.addEventListener('click', () => {
+                    modal.classList.remove('hidden');
+                });
+
+                // Obtener el botón de cierre del modal y agregar el evento para cerrar
+                const closeModalButton = modal.querySelector(`[del-data-modal-toggle="${modalId}"]`);
                 closeModalButton.addEventListener('click', () => {
                     modal.classList.add('hidden');
                 });

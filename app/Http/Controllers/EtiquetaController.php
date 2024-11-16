@@ -87,12 +87,22 @@ class EtiquetaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Etiqueta $etiqueta)
+    public function destroy(Request $request, Etiqueta $etiqueta)
     {
-        //
+        $eliminarContactos = $request->input('helper-radio'); // 0 o 1 según el valor del radio button
+
+        if ($eliminarContactos == 0) {
+            // Quitar los contactos asociados a la etiqueta SIN Eliminarlos
+            $etiqueta->contactos()->update(['etiqueta_id' => null]);
+        }
+
+        // Eliminar la etiqueta
         $etiqueta->delete();
-        return to_route('contactos.index');
+
+        // Redirigir
+        return to_route('contactos.index')->with('success', 'Etiqueta eliminada correctamente.');
     }
+
 
     public function removeContact($etiquetaId, $contactoId)
     {
@@ -107,6 +117,6 @@ class EtiquetaController extends Controller
         $contacto->save();
 
         // Redirigir con un mensaje de éxito
-        return redirect()->route('etiquetas.show', $etiquetaId)->with('success', 'Etiqueta quitada del contacto.');
+        return redirect()->route('etiquetas.show', $etiquetaId);
     }
 }
