@@ -1,8 +1,9 @@
 <x-contact-layout>
     <div class="py-12 w-full flex justify-center">
         <div class="max-w-7xl sm:px-6 lg:px-8 w-3/4">
-            <a href="{{ route('contactos.index') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Volver a Inicio</a>
-
+            <div class="flex space-x-2">
+                <a href="{{ route('contactos.index') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Volver a Inicio</a>
+            </div>
             <div class=" mt-4 relative overflow-x-auto shadow sm:rounded-lg">
 
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

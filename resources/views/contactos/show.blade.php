@@ -11,9 +11,18 @@
                         <span class="text-white font-medium text-xl">{{$contacto->nombre}}</span>
                     </div>
                 </center>
-                <div class="btns">
+                <div class="flex space-x-2">
                     <a href="{{ route('contactos.index') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Volver a Inicio</a>
                     <a href="{{ route('contactos.edit', $contacto->id) }}" class="ml-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Editar</a>
+                    <form action="{{ route('contactos.destroy', $contacto) }}" method="post" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                        @csrf @method('DELETE')
+                        <a href="{{ route('contactos.destroy', $contacto) }}"
+                            onclick="event.preventDefault(); this.closest('form').submit();">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 6h18v2H3zm2 3h14l-1 14H6zM9 2h6v2H9z" />
+                            </svg>
+                        </a>
+                    </form>
                 </div>
                 <div class="mt-8 grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-5 group">
